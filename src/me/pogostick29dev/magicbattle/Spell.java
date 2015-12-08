@@ -61,7 +61,7 @@ Spell rankings are as follow:
             any way while levitating. Cloud (smoke) particles will spawn around the player. (Level one because it just makes the 
             player levitate. That's it.)
 
-/**
+**/
 
 	FIRE_STORM("Fire Storm", ChatColor.RED + "" + ChatColor.BOLD, new WandRunnable() {
 		public void run(PlayerInteractEvent e) {
