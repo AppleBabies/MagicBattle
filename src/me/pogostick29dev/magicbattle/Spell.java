@@ -63,19 +63,19 @@ Spell rankings are as follow:
 
 **/
 
-	FIRE_STORM("Fire Storm", ChatColor.RED + "" + ChatColor.BOLD, new WandRunnable() {
+	FIRE_STORM("Fire Storm", ChatColor.RED, new WandRunnable() {
 		public void run(PlayerInteractEvent e) {
 	
 		}
 	}),
 	
-	ANTI-ANTIDOTE("Anti-antidote", ChatColor.DARK_PURPLE + "" + ChatColor.BOLD, new WandRunnable() {
+	ANTI-ANTIDOTE("Anti-antidote", ChatColor.DARK_PURPLE, new WandRunnable() {
 		public void run(PlayerInteractEvent e) {
 	
 		}
 	}),
 	
-	GODS_STORM("God's Storm", ChatColor.YELLOW + "" + ChatColor.BOLD, new WandRunnable() {
+	GODS_STORM("God's Storm", ChatColor.YELLOW, new WandRunnable() {
 		public void run(PlayerInteractEvent e) {
 	
 		}
@@ -100,7 +100,7 @@ Spell rankings are as follow:
 	}
 	
 	public String getFullName() {
-		return color + name;
+		return color + "" + ChatColor.BOLD + "" + name;
 	}
 	
 	public void run(PlayerInteractEvent e) {
@@ -108,11 +108,11 @@ Spell rankings are as follow:
 	}
 	
 	public ItemStack createItemStack() {
-		ItemStack i = new ItemStack(Material.STICK, 1);
+		ItemStack i = new ItemStack(Material.BOOK, 1);
 		
 		ItemMeta im = i.getItemMeta();
 		im.setDisplayName(getFullName());
-		im.setLore(Arrays.asList("A magic wand!"));
+		im.setLore(Arrays.asList(getFullName() + color + " spell. Requires 1 spell power!"));
 		
 		i.setItemMeta(im);
 		
