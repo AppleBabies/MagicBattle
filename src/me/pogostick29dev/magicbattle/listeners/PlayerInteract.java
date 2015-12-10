@@ -21,6 +21,14 @@ public class PlayerInteract implements Listener {
 		if (!(e.getAction() == Action.RIGHT_CLICK_AIR) && !(e.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
 		if (!(e.getPlayer().getItemInHand().getType() == Material.STICK)) return;
 		
+		if(e.getPlayer().getItemInHand().getType() == Material.WATER_BOTTLE) {
+			e.getPlayer().getInventory().remove(new ItemStack(Material.WATER_BOTTLE);
+			e.getPlayer().setHealth(e.getPlayer().getHealth() + 5);
+			e.getPlayer().playSound(e.getPlayer().getLocation(), Sound.PORTAL_TRAVEL, 1, 1);
+			MessageManager().getInstance().msg(e.getPlayer(), MessageType.INFO, ChatColor.GOLD + "The power of the gods heals you.");
+			return;
+		}
+		
 		ItemMeta stickMeta = e.getItem().getItemMeta();
 		
 		for (Wand w : Wand.values()) {
