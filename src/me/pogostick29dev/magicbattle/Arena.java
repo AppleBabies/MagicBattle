@@ -118,11 +118,35 @@ public class Arena {
 	}
 	
 	public void stop(Player winner) {
-		if (winner != null) MessageManager.getInstance().broadcast(MessageType.GOOD, winner.getName() + " has won arena " + id + "!");
+		//Get the last player alive. Assume they are the winner.
+		if (winner != null) {
+			//Get player data
+			for (PlayerData pd : data) {
+				//Play sound to all those still in the game
+			pd.getPlayer().playSound(pd.getPlayer().getLocation, Sound.LEVEL_UP, 1, 10);
+			//Create a title
+			Title title = new Title(ChatColor.GREEN + winner.getName(),Action.TITLE,5,5,5);
+			//Build and send
+			title.build();
+			title.send(pd.getPlayer());
+			//Create subtitle
+			Title subtitle = new Title(ChatColor.GREEN + "has won the game!",Action.SUBTITLE,5,5,5);
+			//Build and send
+			subtitle.build();
+			subtitle.send(pd.getPlayer());
+			}
+		}
+		//Wait 5 seconds
+		Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+            public void run() {
+            	//Restore player, play sound, and stall arena
+                 pd.restorePlayer();
+		 pd.getPlayer().playSound(pd.getPlayer().getLocation(), Sound.LEVEL_UP, 1, 10);
+        	this.state = ArenaState.WAITING;
+            }
+        }, 20*5); //5 seconds
 		
-		for (PlayerData pd : data) pd.restorePlayer();
-
-        this.state = ArenaState.WAITING;
+	
 	}
 
     public void stop() {
