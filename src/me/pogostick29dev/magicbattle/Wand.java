@@ -40,6 +40,7 @@ public enum Wand {
 	FREEZE("Freeze", ChatColor.AQUA, new WandRunnable() {
 		public void run(PlayerInteractEvent e) {
 		  final Player player = event.getPlayer();
+		  final World world = player.getWorld();
                 if (event.getAction() == Action.LEFT_CLICK_AIR){
                         new BukkitRunnable(){                          
                                 double t = 0;
@@ -52,7 +53,13 @@ public enum Wand {
                                         double y = direction.getY() * t + 1.5;
                                         double z = direction.getZ() * t;
                                         loc.add(x,y,z);
+                                        world.playSound(loc, Sound.ICE_BREAK, 1, 1);
                                         ParticleEffect.FIREWORKS_SPARK.display(loc, 0, 0, 0, 0, 1);
+                                        for(Entity en : player.getChunk().getEntities()) {
+                                        	if (en.getLocation().direction(loc) < 1.0) {
+                                        		//Call task to freeze entity
+                                        	}
+                                        }
                                         loc.subtract(x,y,z);
                                        
                                 if (t > 30){
