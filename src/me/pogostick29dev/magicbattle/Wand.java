@@ -35,6 +35,32 @@ public enum Wand {
 				}
 			}
 		}
+	}),
+	
+	FREEZE("Freeze", ChatColor.AQUA, new WandRunnable() {
+		public void run(PlayerInteractEvent e) {
+		  final Player player = event.getPlayer();
+                if (event.getAction() == Action.LEFT_CLICK_AIR){
+                        new BukkitRunnable(){                          
+                                double t = 0;
+                               
+                                public void run(){
+                                        t = t + 0.5;
+                                        Location loc = player.getLocation();
+                                        Vector direction = loc.getDirection().normalize();
+                                        double x = direction.getX() * t;
+                                        double y = direction.getY() * t + 1.5;
+                                        double z = direction.getZ() * t;
+                                        loc.add(x,y,z);
+                                        ParticleEffect.FIREWORKS_SPARK.display(loc, 0, 0, 0, 0, 1);
+                                        loc.subtract(x,y,z);
+                                       
+                                if (t > 30){
+                                        this.cancel();
+                                }
+                                }
+                        }.runTaskTimer(MagicBattle.getPlugin(), 0, 1);
+		}
 	});
 	
 	private String name;
